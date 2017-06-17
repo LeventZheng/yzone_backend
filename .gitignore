@@ -22,3 +22,8 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+src/main/resources/application-home.yml
+src/main/resources/application.yml
+src/main/java/com/spark/controller/ReptiliaController.java
+src/main/java/com/spark/service/ReptiliaService.java
+src/main/java/com/spark/service/impl/ReptiliaServiceImpl.java
