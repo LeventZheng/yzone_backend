@@ -28,14 +28,14 @@ public class UserController {
         return userService.save(user);
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
 
         if(json.get("email") == null || json.get("password") == null) {
             throw new ServletException("Please fill in email and password");
         }
 
-        String emial = json.get("emial");
+        String emial = json.get("email");
         String password = json.get("password");
 
         User user = userService.findByEmail(emial);
