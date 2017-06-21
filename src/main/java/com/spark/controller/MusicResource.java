@@ -25,7 +25,7 @@ public class MusicResource {
     UserService userService;
 
     @RequestMapping(value = "music/user", method = RequestMethod.POST)
-    public List getAllMusic() {
+    public List getAllMusicByUser() {
 
         User user = userService.findByEmail("admin@yzone.com");
         List<Music> musicList = musicService.findByUser(user);
