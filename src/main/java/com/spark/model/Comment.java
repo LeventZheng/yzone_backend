@@ -33,5 +33,67 @@ public class Comment {
     @CreationTimestamp
     private Date creatDate;       // 创建日期
 
+    public Long getCommentId() {
+        return commentId;
+    }
 
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
+
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Date getUpdatDate() {
+        return updatDate;
+    }
+
+    public void setUpdatDate(Date updatDate) {
+        this.updatDate = updatDate;
+    }
+
+    public Date getCreatDate() {
+        return creatDate;
+    }
+
+    public void setCreatDate(Date creatDate) {
+        this.creatDate = creatDate;
+    }
 }
