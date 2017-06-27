@@ -24,7 +24,7 @@ public class AlbumResource {
     @Autowired
     AlbumService albumService;
 
-    @RequestMapping(value = "/video/user")
+    @RequestMapping(value = "/album/getAlbumByUser")
     public Page<Album> getVidelByUser(
             @RequestParam(value = "pageNumber") int pageNumber,
             @RequestParam(value = "pageSize") int pageSize

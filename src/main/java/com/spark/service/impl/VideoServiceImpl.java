@@ -23,6 +23,10 @@ public class VideoServiceImpl implements VideoService {
         return videoDao.save(video);
     };
 
+    public Video findByVideoId(Long videoId) {
+        return this.videoDao.findByVideoId(videoId);
+    };
+
     public Page<Video> findByUser(User user, Pageable pageRequest) {
         return videoDao.findByUser(user, pageRequest);
     };

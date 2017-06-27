@@ -26,7 +26,7 @@ public class VideoResource {
     @Autowired
     VideoService videoService;
 
-    @RequestMapping(value = "/video/user",method = RequestMethod.GET)
+    @RequestMapping(value = "/video/getVideoByUser",method = RequestMethod.GET)
     public Page<Video> getAllVideoByUser(
             @RequestParam(value = "pageNumber") int pageNumber,
             @RequestParam(value = "pageSize") int pageSize

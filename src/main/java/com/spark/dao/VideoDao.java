@@ -15,5 +15,7 @@ public interface VideoDao extends PagingAndSortingRepository<Video, Long> {
 
     Video save(Video video);
 
+    Video findByVideoId(Long videoId);
+
     Page<Video> findByUser(User user, Pageable pageRequest);
 }

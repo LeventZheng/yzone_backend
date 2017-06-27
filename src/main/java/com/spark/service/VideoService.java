@@ -13,5 +13,7 @@ import java.util.List;
 public interface VideoService {
     Video save(Video video);
 
+    Video findByVideoId(Long videoId);
+
     Page<Video> findByUser(User user, Pageable pageRequest);
 }
