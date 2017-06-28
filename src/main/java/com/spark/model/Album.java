@@ -38,7 +38,8 @@ public class Album {
 
 
     // 相册和视频之间属于一对一的关系
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="VIDEO_VIDEO_ID")
     private Video video;
 
     // 点赞人数
