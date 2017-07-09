@@ -18,8 +18,6 @@ public class Video {
     private String fileUrl;    // 文件名
     private String videoTitle;   // 视频名
 
-    @OneToOne(mappedBy="video")
-    private Album album;
     // 所属用户
     @ManyToOne
     @JsonIgnore
@@ -53,14 +51,6 @@ public class Video {
 
     public void setVideoTitle(String videoTitle) {
         this.videoTitle = videoTitle;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
     }
 
     public User getUser() {

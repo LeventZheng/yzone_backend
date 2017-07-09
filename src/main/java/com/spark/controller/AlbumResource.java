@@ -41,9 +41,9 @@ public class AlbumResource {
     private PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType) {
         Sort sort = null;
         if ("auto".equals(sortType)) {
-            sort = new Sort(Sort.Direction.ASC, "videoId");
+            sort = new Sort(Sort.Direction.ASC, "albumId");
         } else if ("title".equals(sortType)) {
-            sort = new Sort(Sort.Direction.ASC, "videoTitle");
+            sort = new Sort(Sort.Direction.ASC, "albumTitle");
         }
 
         return new PageRequest(pageNumber - 1, pagzSize, sort);
