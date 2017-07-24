@@ -46,7 +46,7 @@ public class Album {
     private int likes;
 
     // 评论
-    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Comment> commentList;
 

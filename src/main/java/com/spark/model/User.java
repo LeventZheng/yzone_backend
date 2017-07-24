@@ -24,23 +24,23 @@ public class User {
     private String avatar;      // 用户头像
 
     // 和相片一对多
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Photo> photoList;
 
     // 和音乐一对多
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Music> musicList;
 
     // 和视频一对多
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Video> videoList;
 
     // 和相册一对多
     // 一对多的映射关系,一个用户可以有多个相册，一个相册只属于一个用户
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Album> albumList;
 
@@ -94,13 +94,13 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Set<Photo> getPhotoList() {
-        return photoList;
-    }
-
-    public void setPhotoList(Set<Photo> photoList) {
-        this.photoList = photoList;
-    }
+//    public Set<Photo> getPhotoList() {
+//        return photoList;
+//    }
+//
+//    public void setPhotoList(Set<Photo> photoList) {
+//        this.photoList = photoList;
+//    }
 
     public Set<Music> getMusicList() {
         return musicList;
@@ -110,7 +110,7 @@ public class User {
         this.musicList = musicList;
     }
 
-    public Set<Video> getVideoList() {
+    /*public Set<Video> getVideoList() {
         return videoList;
     }
 
@@ -132,7 +132,7 @@ public class User {
 
     public void setLikedAlbumList(List<Album> likedAlbumList) {
         this.likedAlbumList = likedAlbumList;
-    }
+    }*/
 
     public Date getUpdatDate() {
         return updatDate;
