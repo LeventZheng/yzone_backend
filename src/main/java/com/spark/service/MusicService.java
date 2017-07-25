@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface MusicService {
     List<Music> findByUser(User user);
+    Music save(Music music);
 }

@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface MusicDao extends CrudRepository<Music, Long> {
     List<Music> findByUser(User user);
+    Music save(Music music);
 }

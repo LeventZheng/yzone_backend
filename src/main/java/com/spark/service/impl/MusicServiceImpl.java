@@ -20,4 +20,8 @@ public class MusicServiceImpl implements MusicService {
     public List<Music> findByUser(User user) {
         return musicDao.findByUser(user);
     };
+
+    public Music save(Music music) {
+        return musicDao.save(music);
+    };
 }
