@@ -35,8 +35,12 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User requestUser(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseInfo<Map<String, Object>> requestUser(@RequestBody User user) {
+        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("user", userService.save(user));
+        responseInfo.setData(map);
+        return responseInfo;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -66,16 +70,6 @@ public class UserController extends BaseController {
             return responseInfo;
         }
         map.put("token", Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
-        responseInfo.setData(map);
-        return responseInfo;
-    }
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseInfo<Map<String, Object>> list() {
-        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
-        Map<String, Object> map = new HashMap<String, Object>();
-        Iterable<User> userList = userService.findAll();
-        map.put("userList", userList);
         responseInfo.setData(map);
         return responseInfo;
     }
