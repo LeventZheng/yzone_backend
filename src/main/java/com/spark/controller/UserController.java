@@ -1,5 +1,7 @@
 package com.spark.controller;
 
+import com.spark.common.controller.BaseController;
+import com.spark.common.model.ResponseInfo;
 import com.spark.model.User;
 import com.spark.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
@@ -29,7 +32,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody Map<String, String> json) throws ServletException {
+    public ResponseInfo<Map<String, Object>> login(@RequestBody Map<String, String> json) throws ServletException {
+        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
+        Map<String, Object> map = new HashMap<String, Object>();
 
         if(json.get("email") == null || json.get("password") == null) {
             throw new ServletException("Please fill in email and password");
@@ -40,15 +45,20 @@ public class UserController {
 
         User user = userService.findByEmail(emial);
         if(user == null) {
-            throw new ServletException("User account not found.");
+//            throw new ServletException("User account not found.");
+            responseInfo = buildValidateErrorRetunInfo();
+            return responseInfo;
         }
 
         String pwd = user.getPassword();
 
         if(!password.equals(pwd)) {
-            throw new ServletException("invalid login,PLease check your account and password.");
+//            throw new ServletException("invalid login,PLease check your account and password.");
+            responseInfo = buildValidateErrorRetunInfo();
+            return responseInfo;
         }
-
-        return Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        map.put("token", Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
+        responseInfo.setData(map);
+        return responseInfo;
     }
 }
