@@ -1,6 +1,7 @@
 package com.spark.controller;
 
 import com.spark.common.controller.BaseController;
+import com.spark.common.enums.EnumResponseCode;
 import com.spark.common.model.ResponseInfo;
 import com.spark.model.User;
 import com.spark.service.UserService;
@@ -46,7 +47,7 @@ public class UserController extends BaseController {
         User user = userService.findByEmail(emial);
         if(user == null) {
 //            throw new ServletException("User account not found.");
-            responseInfo = buildValidateErrorRetunInfo();
+            responseInfo = buildErrorRetunInfo(EnumResponseCode.RESOURCE_NOT_FOUND);
             return responseInfo;
         }
 

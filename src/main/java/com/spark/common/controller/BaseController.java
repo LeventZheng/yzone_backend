@@ -29,5 +29,9 @@ public abstract class BaseController {
 		ResponseInfo<T> responseInfo = new ResponseInfo<T>(EnumResponseCode.VALIDATE_ERROR);
 		return responseInfo;
 	}
+	public <T> ResponseInfo<T> buildErrorRetunInfo(EnumResponseCode responseCode) {
+		ResponseInfo<T> responseInfo = new ResponseInfo<T>(responseCode);
+		return responseInfo;
+	}
 	
 }
