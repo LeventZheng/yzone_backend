@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by User on 2017/6/9.
@@ -26,6 +27,12 @@ import java.util.Map;
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public User checkLogin() {
+//        return userService.save(user);
+        return null;
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User requestUser(@RequestBody User user) {
@@ -59,6 +66,16 @@ public class UserController extends BaseController {
             return responseInfo;
         }
         map.put("token", Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
+        responseInfo.setData(map);
+        return responseInfo;
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResponseInfo<Map<String, Object>> list() {
+        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
+        Map<String, Object> map = new HashMap<String, Object>();
+        Iterable<User> userList = userService.findAll();
+        map.put("userList", userList);
         responseInfo.setData(map);
         return responseInfo;
     }

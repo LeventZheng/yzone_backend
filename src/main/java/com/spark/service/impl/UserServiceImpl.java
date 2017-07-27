@@ -21,4 +21,8 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userDao.findByEmail(email);
     };
+
+    public Iterable<User> findAll() {
+        return userDao.findAll();
+    };
 }

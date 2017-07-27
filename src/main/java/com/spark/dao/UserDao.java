@@ -12,4 +12,6 @@ public interface UserDao extends CrudRepository<User, Long> {
     User save(User user);
 
     User findByEmail(String email);
+
+    Iterable<User> findAll();
 }
