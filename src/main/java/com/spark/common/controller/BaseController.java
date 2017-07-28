@@ -5,6 +5,13 @@ package com.spark.common.controller;
 
 import com.spark.common.enums.EnumResponseCode;
 import com.spark.common.model.ResponseInfo;
+import com.spark.model.User;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 /**
  * 控制器支持类
@@ -32,6 +39,32 @@ public abstract class BaseController {
 	public <T> ResponseInfo<T> buildErrorRetunInfo(EnumResponseCode responseCode) {
 		ResponseInfo<T> responseInfo = new ResponseInfo<T>(responseCode);
 		return responseInfo;
+	}
+
+	public void printRequest(){
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		Enumeration enu=request.getHeaderNames();//取得全部头信息
+		while (enu.hasMoreElements()){
+			String headerName=(String)enu.nextElement();
+			String headerValue=request.getHeader(headerName);//取出头信息内容
+			System.out.println(String.format("headerName:%s   headerValue:%s",headerName,headerValue));
+		}
+	}
+
+	public User getUser() {
+		String token = "";
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpSession session = request.getSession();
+
+		Enumeration enu=request.getHeaderNames();//取得全部头信息
+		while (enu.hasMoreElements()){
+			String headerName=(String)enu.nextElement();
+			if (headerName.equals("token")) {
+				token = request.getHeader(headerName);
+				break;
+			}
+		}
+		return (User)session.getAttribute(token);
 	}
 	
 }
