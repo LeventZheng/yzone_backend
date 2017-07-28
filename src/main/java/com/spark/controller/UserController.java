@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,10 +42,11 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseInfo<Map<String, Object>> login(@RequestBody Map<String, String> json) throws ServletException {
-        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
+    public ResponseInfo<Map<String, Object>> login(
+            @RequestBody Map<String, String> json,
+            HttpSession session ) throws ServletException {
+        ResponseInfo<Map<String, Object>> responseInfo;
         Map<String, Object> map = new HashMap<String, Object>();
-
         if(json.get("email") == null || json.get("password") == null) {
             throw new ServletException("Please fill in email and password");
         }
@@ -65,13 +68,16 @@ public class UserController extends BaseController {
             responseInfo = buildValidateErrorRetunInfo();
             return responseInfo;
         }
-        map.put("token", Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
+        String token = Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        session.setAttribute(token, user);
+        map.put("token", token);
+        responseInfo = buildSuccessRetunInfo();
         responseInfo.setData(map);
         return responseInfo;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseInfo<Map<String, Object>> list() {
+    public ResponseInfo<Map<String, Object>> list(HttpServletRequest request) {
         ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
         Map<String, Object> map = new HashMap<String, Object>();
         Iterable<User> userList = userService.findAll();
