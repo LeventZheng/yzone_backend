@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,8 +36,12 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User requestUser(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseInfo<Map<String, Object>> requestUser(@RequestBody User user) {
+        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("user", userService.save(user));
+        responseInfo.setData(map);
+        return responseInfo;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -72,16 +75,6 @@ public class UserController extends BaseController {
         session.setAttribute(token, user);
         map.put("token", token);
         responseInfo = buildSuccessRetunInfo();
-        responseInfo.setData(map);
-        return responseInfo;
-    }
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseInfo<Map<String, Object>> list(HttpServletRequest request) {
-        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
-        Map<String, Object> map = new HashMap<String, Object>();
-        Iterable<User> userList = userService.findAll();
-        map.put("userList", userList);
         responseInfo.setData(map);
         return responseInfo;
     }
