@@ -29,12 +29,6 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public User checkLogin() {
-//        return userService.save(user);
-        return null;
-    }
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseInfo<Map<String, Object>> requestUser(@RequestBody User user) {
         ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
@@ -74,6 +68,7 @@ public class UserController extends BaseController {
         String token = Jwts.builder().setSubject(emial).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
         session.setAttribute(token, user);
         map.put("token", token);
+        map.put("user", user);
         responseInfo = buildSuccessRetunInfo();
         responseInfo.setData(map);
         return responseInfo;

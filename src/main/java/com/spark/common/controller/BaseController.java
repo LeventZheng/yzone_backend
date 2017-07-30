@@ -6,6 +6,8 @@ package com.spark.common.controller;
 import com.spark.common.enums.EnumResponseCode;
 import com.spark.common.model.ResponseInfo;
 import com.spark.model.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -36,6 +38,12 @@ public abstract class BaseController {
 		ResponseInfo<T> responseInfo = new ResponseInfo<T>(EnumResponseCode.VALIDATE_ERROR);
 		return responseInfo;
 	}
+	// 资源不存在
+	public <T> ResponseInfo<T> buildResourceNoFoundErrorRetunInfo() {
+		ResponseInfo<T> responseInfo = new ResponseInfo<T>(EnumResponseCode.RESOURCE_NOT_FOUND);
+		return responseInfo;
+	}
+	// 通用错误返回
 	public <T> ResponseInfo<T> buildErrorRetunInfo(EnumResponseCode responseCode) {
 		ResponseInfo<T> responseInfo = new ResponseInfo<T>(responseCode);
 		return responseInfo;
@@ -65,6 +73,20 @@ public abstract class BaseController {
 			}
 		}
 		return (User)session.getAttribute(token);
+	}
+
+	/**
+	 * 创建分页请求.
+	 */
+	public PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType, String modelName) {
+		Sort sort = null;
+		if ("auto".equals(sortType)) {
+			sort = new Sort(Sort.Direction.ASC, modelName + "Id");
+		} else if ("title".equals(sortType)) {
+			sort = new Sort(Sort.Direction.ASC, modelName + "Title");
+		}
+
+		return new PageRequest(pageNumber, pagzSize, sort);
 	}
 	
 }

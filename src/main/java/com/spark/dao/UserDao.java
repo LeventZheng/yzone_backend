@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends CrudRepository<User, Long> {
     User save(User user);
 
+    User findOne(Long userId);
+
     User findByEmail(String email);
 
     Iterable<User> findAll();

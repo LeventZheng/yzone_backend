@@ -7,8 +7,7 @@ import com.spark.model.User;
  */
 public interface UserService {
     User save(User user);
-
+    User findOne(Long userId);
     User findByEmail(String email);
-
     Iterable<User> findAll();
 }

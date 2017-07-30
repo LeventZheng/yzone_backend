@@ -5,8 +5,12 @@ import com.spark.model.Music;
 import com.spark.model.User;
 import com.spark.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,8 +21,12 @@ public class MusicServiceImpl implements MusicService {
     @Autowired
     MusicDao musicDao;
 
-    public List<Music> findByUser(User user) {
-        return musicDao.findByUser(user);
+    public Page<Music> findAll(Pageable pageRequest) {
+        return musicDao.findAll(pageRequest);
+    };
+
+    public Page<Music> findByUser(User user, PageRequest pageRequest) {
+        return musicDao.findByUser(user, pageRequest);
     };
 
     public Music save(Music music) {

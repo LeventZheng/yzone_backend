@@ -18,4 +18,8 @@ public class PhotoServiceImpl implements PhotoService {
     public Photo save(Photo photo){
         return photoDao.save(photo);
     };
+
+    public void delete(Long photoId) {
+        photoDao.delete(photoId);
+    };
 }

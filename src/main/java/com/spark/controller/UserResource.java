@@ -18,19 +18,22 @@ import java.util.Map;
  * Created by User on 2017/7/28.
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/user")
 public class UserResource extends BaseController {
     @Autowired
     private UserService userService;
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public ResponseInfo<Boolean> checkLogin() {
+        ResponseInfo<Boolean> responseInfo = buildSuccessRetunInfo();
+        responseInfo.setData(true);
+        return responseInfo;
+    }
 
-    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
-    public ResponseInfo<Map<String, Object>> list() {
-        ResponseInfo<Map<String, Object>> responseInfo = buildSuccessRetunInfo();
-        Map<String, Object> map = new HashMap<String, Object>();
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResponseInfo<Iterable<User>> list() {
+        ResponseInfo<Iterable<User>> responseInfo = buildSuccessRetunInfo();
         Iterable<User> userList = userService.findAll();
-        map.put("userList", userList);
-        responseInfo.setData(map);
-        System.out.println(getUser());
+        responseInfo.setData(userList);
         return responseInfo;
     }
 }

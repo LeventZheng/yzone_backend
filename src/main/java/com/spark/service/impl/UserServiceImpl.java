@@ -18,6 +18,10 @@ public class UserServiceImpl implements UserService {
         return userDao.save(user);
     };
 
+    public User findOne(Long userId) {
+        return userDao.findOne(userId);
+    };
+
     public User findByEmail(String email) {
         return userDao.findByEmail(email);
     };
