@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by User on 2017/6/8.
@@ -22,6 +23,9 @@ public class Photo {
     @ManyToOne
     @JsonIgnore
     private User user;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Album> albumList;
 
     @CreationTimestamp
     private Date updatDate;       // 更新日期
@@ -75,5 +79,13 @@ public class Photo {
 
     public void setCreatDate(Date creatDate) {
         this.creatDate = creatDate;
+    }
+
+    public List<Album> getAlbumList() {
+        return albumList;
+    }
+
+    public void setAlbumList(List<Album> albumList) {
+        this.albumList = albumList;
     }
 }
