@@ -5,7 +5,9 @@ import com.spark.common.model.ResponseInfo;
 import com.spark.model.Album;
 import com.spark.model.User;
 import com.spark.service.AlbumService;
+import com.spark.service.ReptiliaService;
 import com.spark.service.UserService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +31,9 @@ public class AlbumResource extends BaseController {
     @Autowired
     AlbumService albumService;
 
+    @Autowired
+    ReptiliaService reptiliaService;
+
     @RequestMapping(value = "/getAlbumByUser")
     public ResponseInfo<Page<Album>> getVidelByUser(
             @RequestParam(value = "pageNumber") int pageNumber, // 首页为0
@@ -40,6 +45,20 @@ public class AlbumResource extends BaseController {
         PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "album");
         Page<Album> albumPage = albumService.findByUser(user, pageRequest);
         responseInfo.setData(albumPage);
+        return responseInfo;
+    }
+
+    @RequestMapping(value = "/addAlbumFromXiumei")
+    public ResponseInfo<Album> addAlbumByUser(
+            @RequestParam(value = "y", required = true) Long y,
+            @RequestParam(value = "userId", required = true) Long userId
+    ) {
+        ResponseInfo<Album> responseInfo = buildSuccessRetunInfo();
+        JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y.toString());
+        Album album = reptiliaService.save(userId, jsonobject, y);
+//        User user = userService.findOne(userId);
+//        album.setUser(user);
+        responseInfo.setData(album);
         return responseInfo;
     }
 }

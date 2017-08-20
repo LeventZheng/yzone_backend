@@ -46,7 +46,7 @@ public class ReptiliaController {
         List<Album> albumList = new ArrayList<Album>();
         for (Long y = beginY; y < endY; y++) {
             JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y.toString());
-            Album album = reptiliaService.save(jsonobject, y);
+            Album album = reptiliaService.save(new Long(1),jsonobject, y);
             albumList.add(album);
         }
         System.out.println("本次循环结束：" + endY);
@@ -54,7 +54,9 @@ public class ReptiliaController {
     }
 
     @PostMapping(value = "/local/pic")
-    public void getLocalSrouce() {
+    public void getLocalSrouce(
+            @RequestParam(value = "userId") Long userId
+    ) {
         File[] tempList = FileUtil.getFileList("F:\\localPic");
         Long recordY = new Long(0);
         for (int i = 0; i < tempList.length; i++) {
@@ -62,7 +64,7 @@ public class ReptiliaController {
                 String y = tempList[i].getName();
                 recordY = new Long(y);
                 JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y);
-                Album album = reptiliaService.save(jsonobject, new Long(y));
+                Album album = reptiliaService.save(userId,jsonobject, new Long(y));
             }
         }
         if (recordY > 0) {

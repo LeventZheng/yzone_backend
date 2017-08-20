@@ -24,9 +24,6 @@ public class Photo {
     @JsonIgnore
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Album> albumList;
-
     @CreationTimestamp
     private Date updatDate;       // 更新日期
 
@@ -79,13 +76,5 @@ public class Photo {
 
     public void setCreatDate(Date creatDate) {
         this.creatDate = creatDate;
-    }
-
-    public List<Album> getAlbumList() {
-        return albumList;
-    }
-
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
     }
 }

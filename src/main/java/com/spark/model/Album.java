@@ -33,7 +33,7 @@ public class Album {
     private Music music;
 
     // 相册和相片属于多对多的关系
-    @ManyToMany(mappedBy = "albumList")
+    @ManyToMany
     private List<Photo> photoList;
 
 

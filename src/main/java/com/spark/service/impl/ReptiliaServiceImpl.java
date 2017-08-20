@@ -50,9 +50,10 @@ public class ReptiliaServiceImpl implements ReptiliaService {
     };
 
     @Transactional
-    public Album save(JSONObject jsonobject, Long y) {
+    public Album save(Long userId, JSONObject jsonobject, Long y) {
         List<Photo> photoList = new ArrayList<Photo>();
-        User user = userService.findByEmail("admin@yzone.com");
+        User user = userService.findOne(userId);
+        // 如果用户为空就新注册一个
         if (user ==null) {
             user = new User();
             user.setEmail("admin@yzone.com");

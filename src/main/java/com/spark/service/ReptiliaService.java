@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface ReptiliaService {
     JSONObject getResourceFromXiumei(String y);
-    Album save(JSONObject jsonobject, Long y);
+    Album save(Long userId, JSONObject jsonobject, Long y);
 }
