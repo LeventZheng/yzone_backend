@@ -22,7 +22,7 @@ public class AlbumServiceImpl implements AlbumService {
         return albumDao.save(album);
     };
 
-    public Album findByAlbumId(String albumId) {
+    public Album findByAlbumId(Long albumId) {
         return albumDao.findByAlbumId(albumId);
     };
 

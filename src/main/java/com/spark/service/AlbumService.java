@@ -12,7 +12,7 @@ public interface AlbumService {
 
     Album save(Album album);
 
-    Album findByAlbumId(String albumId);
+    Album findByAlbumId(Long albumId);
 
     Page<Album> findByUser(User user, Pageable pageRequest);
 }

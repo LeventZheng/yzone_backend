@@ -12,7 +12,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface AlbumDao extends PagingAndSortingRepository<Album, Long> {
     Album save(Album album);
 
-    Album findByAlbumId(String albumId);
+    Album findByAlbumId(Long albumId);
 
     Page<Album> findByUser(User user, Pageable pageRequest);
 }

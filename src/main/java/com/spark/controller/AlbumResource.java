@@ -35,7 +35,7 @@ public class AlbumResource extends BaseController {
     ReptiliaService reptiliaService;
 
     @RequestMapping(value = "/getAlbumByUser")
-    public ResponseInfo<Page<Album>> getVidelByUser(
+    public ResponseInfo<Page<Album>> getAlbumByUser(
             @RequestParam(value = "pageNumber") int pageNumber, // 首页为0
             @RequestParam(value = "pageSize") int pageSize,
             @RequestParam(value = "userId") Long userId
@@ -45,6 +45,16 @@ public class AlbumResource extends BaseController {
         PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "album");
         Page<Album> albumPage = albumService.findByUser(user, pageRequest);
         responseInfo.setData(albumPage);
+        return responseInfo;
+    }
+
+    @RequestMapping(value = "/getAlbumById")
+    public ResponseInfo<Album> getAlbumById(
+            @RequestParam(value = "albumId") Long albumId
+    ) {
+        ResponseInfo<Album> responseInfo = buildSuccessRetunInfo();
+        Album album = albumService.findByAlbumId(albumId);
+        responseInfo.setData(album);
         return responseInfo;
     }
 
