@@ -78,12 +78,12 @@ public abstract class BaseController {
 	/**
 	 * 创建分页请求.
 	 */
-	public PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType, String modelName) {
+	public PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType, String modelName, Sort.Direction direction) {
 		Sort sort = null;
 		if ("auto".equals(sortType)) {
-			sort = new Sort(Sort.Direction.ASC, modelName + "Id");
+			sort = new Sort(direction, modelName + "Id");
 		} else if ("title".equals(sortType)) {
-			sort = new Sort(Sort.Direction.ASC, modelName + "Title");
+			sort = new Sort(direction, modelName + "Title");
 		}
 
 		return new PageRequest(pageNumber, pagzSize, sort);

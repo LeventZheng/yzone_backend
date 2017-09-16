@@ -9,6 +9,7 @@ import com.spark.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class MusicResource extends BaseController {
             @RequestParam(value = "pageSize") int pageSize
             ) {
         ResponseInfo<Page<Music>> responseInfo = buildSuccessRetunInfo();
-        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "music");
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "music", Sort.Direction.ASC);
         Page<Music> musicList = musicService.findAll(pageRequest);
         responseInfo.setData(musicList);
         return responseInfo;
@@ -43,7 +44,7 @@ public class MusicResource extends BaseController {
             @RequestParam(value = "pageSize") int pageSize
     ) {
         ResponseInfo<Page<Music>> responseInfo = buildSuccessRetunInfo();
-        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "music");
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "music", Sort.Direction.ASC);
         User user = userService.findByEmail("admin@yzone.com");
         Page<Music> musicList = musicService.findByUser(user, pageRequest);
         responseInfo.setData(musicList);

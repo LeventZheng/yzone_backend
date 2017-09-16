@@ -28,8 +28,8 @@ public class Album {
     private User user;
 
     // 配的音乐，允许多个相册配同一首音乐
-    @ManyToOne
-    @JsonBackReference
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="MUSIC_MUSIC_ID")
     private Music music;
 
     // 相册和相片属于多对多的关系

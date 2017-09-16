@@ -36,7 +36,7 @@ public class VideoResource extends BaseController {
         User user = userService.findByEmail("admin@yzone.com");
 
         ResponseInfo<Page<Video>> responseInfo = buildSuccessRetunInfo();
-        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "video");
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "video", Sort.Direction.DESC);
         Page<Video> videoList = videoService.findByUser(user, pageRequest);
         responseInfo.setData(videoList);
         return responseInfo;

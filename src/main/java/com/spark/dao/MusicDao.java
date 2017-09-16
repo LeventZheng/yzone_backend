@@ -15,5 +15,6 @@ import java.util.List;
 public interface MusicDao extends CrudRepository<Music, Long> {
     Page<Music> findAll(Pageable pageRequest);
     Page<Music> findByUser(User user, Pageable pageRequest);
+    Music findByFileUrl(String musicUrl);
     Music save(Music music);
 }

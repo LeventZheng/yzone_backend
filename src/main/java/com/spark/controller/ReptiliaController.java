@@ -35,7 +35,7 @@ public class ReptiliaController {
 
     @GetMapping(value = "/xiumei")
     public List<Album> getResource(@RequestParam(value = "begin", required = true) Long beginY,
-                            @RequestParam( value = "end", required = false) Long endY) {
+                                   @RequestParam( value = "end", required = false) Long endY) {
         if (endY == null) {
             endY = beginY;
         }
@@ -46,7 +46,7 @@ public class ReptiliaController {
         List<Album> albumList = new ArrayList<Album>();
         for (Long y = beginY; y < endY; y++) {
             JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y.toString());
-            Album album = reptiliaService.save(new Long(1),jsonobject, y);
+            Album album = reptiliaService.save(new Long(1),jsonobject, y, "");
             albumList.add(album);
         }
         System.out.println("本次循环结束：" + endY);
@@ -64,7 +64,7 @@ public class ReptiliaController {
                 String y = tempList[i].getName();
                 recordY = new Long(y);
                 JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y);
-                Album album = reptiliaService.save(userId,jsonobject, new Long(y));
+                Album album = reptiliaService.save(userId,jsonobject, new Long(y), "");
             }
         }
         if (recordY > 0) {

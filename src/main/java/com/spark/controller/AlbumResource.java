@@ -42,7 +42,7 @@ public class AlbumResource extends BaseController {
     ) {
         ResponseInfo<Page<Album>> responseInfo = buildSuccessRetunInfo();
         User user = userService.findOne(userId);
-        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "album");
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto", "album", Sort.Direction.DESC);
         Page<Album> albumPage = albumService.findByUser(user, pageRequest);
         responseInfo.setData(albumPage);
         return responseInfo;
@@ -61,13 +61,12 @@ public class AlbumResource extends BaseController {
     @RequestMapping(value = "/addAlbumFromXiumei")
     public ResponseInfo<Album> addAlbumByUser(
             @RequestParam(value = "y", required = true) Long y,
-            @RequestParam(value = "userId", required = true) Long userId
+            @RequestParam(value = "userId", required = true) Long userId,
+            @RequestParam( value = "musicUrl", required = false) String musicUrl
     ) {
         ResponseInfo<Album> responseInfo = buildSuccessRetunInfo();
         JSONObject jsonobject = reptiliaService.getResourceFromXiumei(y.toString());
-        Album album = reptiliaService.save(userId, jsonobject, y);
-//        User user = userService.findOne(userId);
-//        album.setUser(user);
+        Album album = reptiliaService.save(userId, jsonobject, y, musicUrl);
         responseInfo.setData(album);
         return responseInfo;
     }

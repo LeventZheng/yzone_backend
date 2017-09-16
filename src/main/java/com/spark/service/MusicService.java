@@ -14,5 +14,6 @@ import java.util.List;
 public interface MusicService {
     Page<Music> findAll(Pageable pageRequest);
     Page<Music> findByUser(User user, PageRequest pageRequest);
+    Music findByFileUrl(String musicUrl);
     Music save(Music music);
 }

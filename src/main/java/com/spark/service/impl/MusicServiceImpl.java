@@ -29,6 +29,10 @@ public class MusicServiceImpl implements MusicService {
         return musicDao.findByUser(user, pageRequest);
     };
 
+    public Music findByFileUrl(String musicUrl) {
+        return musicDao.findByFileUrl(musicUrl);
+    };
+
     public Music save(Music music) {
         return musicDao.save(music);
     };
